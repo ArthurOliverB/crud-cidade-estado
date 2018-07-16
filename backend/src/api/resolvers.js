@@ -58,13 +58,40 @@ module.exports = {
             }
             return await db('cities').where({id: result_id}).first()
         },
-        async saveState(_, { input }) {
-            const result = await db('states').insert({
-                name: input.name
-            })
-            const id = result[0]
+        async saveState(_, { input, id }) {
+            let result_id = 0
+
+            if(id) {
+                await db('states').where({id}).update({
+                    name: input.name
+                })
+                result_id = id
+            } else {
+                const result = await db('states').insert({
+                    name: input.name
+                })
+                result_id = result[0]
+            }
             
-            return await db('states').where({id}).first()
+            return await db('states').where({id: result_id}).first()
+        }, 
+        async saveCompany(_, { input, id }) {
+            let result_id = 0
+
+            if(id) {
+                await db('companies').where({id}).update({
+                    name: input.name,
+                    website: input.website
+                })
+                result_id = id
+            } else {
+                const result = await db('companies').insert({
+                    name: input.name,
+                    website: input.website
+                })
+                result_id = result[0]
+            }
+            return await db('companies').where({id: result_id}).first()
         }
     }, 
     State: {

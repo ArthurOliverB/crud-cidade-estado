@@ -23,9 +23,21 @@ const typeDefs =  `
         cities: [City]
     }
 
+    type Company {
+        id: ID!
+        name: String
+        website: String
+    }
+
+    input CompanyInput {
+        name: String
+        website: String
+    }
+
     input StateInput {
         name: String
     }
+
     input MayorInput {
         name: String
         birthdate: String
@@ -47,6 +59,7 @@ const typeDefs =  `
         saveCity(input: CityInput!, id: ID): City
         saveState(input: StateInput!, id: ID): State
         saveMayor(input: MayorInput!, id: ID): Mayor
+        saveCompany(input: CompanyInput!, id: ID): Company
     }
 `
 module.exports = makeExecutableSchema({typeDefs, resolvers})
