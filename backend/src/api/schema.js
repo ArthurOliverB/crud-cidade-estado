@@ -27,6 +27,20 @@ const typeDefs =  `
         id: ID!
         name: String
         website: String
+        branch_offices: [BranchOffice]
+    }
+
+    type BranchOffice {
+        id: ID!
+        company: Company
+        address: String
+        city: City
+    }
+
+    input BranchOfficeInput {
+        company_id: ID!
+        city_id: ID!
+        address: String!
     }
 
     input CompanyInput {
@@ -60,6 +74,7 @@ const typeDefs =  `
         saveState(input: StateInput!, id: ID): State
         saveMayor(input: MayorInput!, id: ID): Mayor
         saveCompany(input: CompanyInput!, id: ID): Company
+        saveBranchOffice(input: BranchOfficeInput!, id: ID): BranchOffice
     }
 `
 module.exports = makeExecutableSchema({typeDefs, resolvers})

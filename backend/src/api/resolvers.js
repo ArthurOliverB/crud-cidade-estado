@@ -92,6 +92,28 @@ module.exports = {
                 result_id = result[0]
             }
             return await db('companies').where({id: result_id}).first()
+        },
+        async saveBranchOffice(_, { input, id }) {
+            let result_id = 0
+
+            if(id) {
+                await db('branch_offices').where({id}).update({
+                    address: input.address,
+                    city_id: input.city_id,
+                    company_id: input.company_id
+                })
+                result_id = id
+            } else {
+                const result = await db('branch_offices').insert({
+                    address: input.address,
+                    city_id: input.city_id,
+                    company_id: input.company_id
+                })
+                result_id = result[0]
+                console.log(result)
+            }
+            
+            return await db('branch_offices').where({id: result_id}).first()
         }
     }, 
     State: {
@@ -113,6 +135,20 @@ module.exports = {
     Mayor: {
         async city(mayor) {
             return await db('cities').where({mayor_id: mayor.id}).first()
+        }
+    }, 
+    BranchOffice: {
+        async city(office) {
+            return await db('cities').where({id: office.city_id}).first()
+        },
+        async company(office) {
+            return await db('companies').where({id: office.company_id}).first()
+        }
+    }, 
+    Company: {
+        async branch_offices(company){
+            console.log(company)
+            return await db('branch_offices').where({id: company.id})
         }
     }
 }
