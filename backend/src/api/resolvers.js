@@ -8,6 +8,15 @@ module.exports = {
         },
         async getState(_, { id }) {
             return await db('states').where({ id }).first()
+        },
+        async getMayor(_, { id }) {
+            return await db('mayors').where({id}).first()
+        },
+        async getCompany(_, { id }) {
+            return await db('companies').where({id}).first()
+        },
+        async getBranchOffice(_, { id }) {
+            return await db('branch_offices').where({id}).first()
         }
     }, 
     Mutation: {

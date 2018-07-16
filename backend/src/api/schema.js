@@ -67,6 +67,9 @@ const typeDefs =  `
     type Query {
         getCity(id: ID!): City
         getState(id: ID!): State
+        getMayor(id: ID!): Mayor
+        getCompany(id: ID!): Company
+        getBranchOffice(id: ID!): BranchOffice
     }
     
     type Mutation { 
