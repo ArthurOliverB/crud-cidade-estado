@@ -6,7 +6,7 @@ const typeDefs =  `
         id: ID!
         name: String
         population: Int
-        state_id: ID
+        state: State
         mayor: Mayor
     }
     
@@ -14,6 +14,7 @@ const typeDefs =  `
         id: ID!
         name: String
         birthdate: String
+        city: City
     }
 
     type State {
@@ -34,7 +35,7 @@ const typeDefs =  `
         name: String
         population: Int
         state_id: ID
-        mayorId: ID
+        mayor_id: ID
     }
     
     type Query {

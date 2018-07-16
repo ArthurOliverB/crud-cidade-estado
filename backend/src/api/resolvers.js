@@ -53,9 +53,10 @@ module.exports = {
                     state_id: input.state_id,
                     mayor_id: input.mayor_id
                 })
+                
                 result_id = result[0]
             }
-            return await db('cities').where({id: result_id})
+            return await db('cities').where({id: result_id}).first()
         },
         async saveState(_, { input }) {
             const result = await db('states').insert({
@@ -73,7 +74,18 @@ module.exports = {
     }, 
     City: {
         async mayor(city) {
-            return await db('mayors').where({id: city.mayor_id})
+            const result  = await db('mayors').where({id: city.mayor_id}).first()
+            result.birthdate = new Date(result.birthdate).toLocaleDateString()
+            return result
+        },
+        async state(city) {
+            console.log(city)
+            return await db('states').where({id: city.state_id}).first()
+        }
+    }, 
+    Mayor: {
+        async city(mayor) {
+            return await db('cities').where({mayor_id: mayor.id}).first()
         }
     }
 }
