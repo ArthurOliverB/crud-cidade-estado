@@ -22,7 +22,9 @@ module.exports = {
     Mutation: {
         async saveMayor(_, {input, id}) {
             let result_id = 0
+            
             if(id) {
+                
                 const birthdate = new Date(input.birthdate).toLocaleDateString()
                 await db('mayors').where({id}).update({
                     name: input.name,
@@ -30,14 +32,15 @@ module.exports = {
                 })
                 result_id = id
             } else {
-
-                const birthdate = new Date(input.birthdate).toLocaleDateString()
                 
-                console.log(birthdate)
+                const birthdate = new Date(input.birthdate)
+                
                 const result = await db('mayors').insert({
                     name: input.name,
                     birthdate
                 })
+                
+                console.log(result)
                 result_id = result[0]
             }
             const result = await db('mayors').where({id: result_id}).first()
