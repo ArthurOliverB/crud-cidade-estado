@@ -17,6 +17,9 @@ module.exports = {
         },
         async getBranchOffice(_, { id }) {
             return await db('branch_offices').where({id}).first()
+        },
+        async getStates() {
+            return await db('states')
         }
     }, 
     Mutation: {

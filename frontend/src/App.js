@@ -4,7 +4,7 @@ import './App.css';
 import { ApolloProvider, Query } from 'react-apollo'
 import ApolloClient from 'apollo-boost'
 import gql from 'graphql-tag'
-
+import Master from './components/Master'
 
 const client  = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -17,7 +17,7 @@ class App extends Component {
         <Query
           query={gql`
             query states {
-              getState(id: 1) {
+              getStates{
                 id
                 name
                 cities {
@@ -33,18 +33,10 @@ class App extends Component {
             if(loading) return <p> Loading... </p>
             if(error) return <p> Error :(</p>
 
-            return (<div>
-              <h2>{data.getState.name}</h2>
-              <p>{data.getState.id}</p>
-              <div> 
-                {data.getState.cities.map(city => {
-                  return (<div> 
-                    <p>{city.state}</p>
-                    <p>{city.name}</p>
-                    <p>{city.population}</p>
-                  </div>)
-                })}
-              </div>
+            return (<div className='content'>
+              {data.getStates.map(state => {
+                return <Master name={state.name} cities={state.cities} />
+              })}
             </div>)
           }}
 

@@ -70,6 +70,7 @@ const typeDefs =  `
         getMayor(id: ID!): Mayor
         getCompany(id: ID!): Company
         getBranchOffice(id: ID!): BranchOffice
+        getStates: [State]
     }
     
     type Mutation { 
